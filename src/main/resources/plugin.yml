@@ -1,0 +1,16 @@
+name: MythicAnimations
+version: '${version}'
+
+main: com.elyisusxd.mythicanims.MythicAnimations
+paperPluginLoader: com.elyisusxd.mythicanims.MythicAnimationsLoader
+api-version: '1.21.1'
+load: POSTWORLD
+
+authors: [elyisusxd]
+depend: [MythicMobs]
+softdepend: [Animorph, PlaceholderAPI]
+commands:
+  morphpoints:
+    description: Administra puntos de progresión
+  skills:
+    description: Abre el árbol de habilidades

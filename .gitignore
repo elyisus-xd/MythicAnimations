@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Compilados
+*.class
+*.jar
+
+# Logs y temporales
+*.log
+*.hprof
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Configuración local / secretos
+local.properties
+*.env
