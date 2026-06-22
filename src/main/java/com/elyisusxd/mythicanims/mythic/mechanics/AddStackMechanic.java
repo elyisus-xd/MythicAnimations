@@ -7,22 +7,19 @@ import io.lumine.mythic.api.skills.INoTargetSkill;
 import io.lumine.mythic.api.skills.SkillMetadata;
 import io.lumine.mythic.api.skills.SkillResult;
 import io.lumine.mythic.api.skills.placeholders.PlaceholderString;
-import io.lumine.mythic.core.skills.SkillExecutor;
-import io.lumine.mythic.core.skills.SkillMechanic;
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.utils.annotations.MythicMechanic;
-
-import java.io.File;
 
 @MythicMechanic(author = "elyisusxd", name = "addstack",
         description = "Agrega stacks a un recurso nombrado con limite opcional")
-public class AddStackMechanic extends SkillMechanic implements INoTargetSkill {
+public class AddStackMechanic implements INoTargetSkill {
 
     private final PlaceholderString resource;
     private final int max;
     private final int amount;
 
-    public AddStackMechanic(SkillExecutor manager, File file, String line, MythicLineConfig mlc) {
-        super(manager, file, line, mlc);
+    public AddStackMechanic(MythicMechanicLoadEvent event) {
+        MythicLineConfig mlc = event.getConfig();
         this.resource = PlaceholderString.of(
                 mlc.getString(new String[]{"resource", "r"}, ""));
         this.max = mlc.getInteger(new String[]{"max", "m"}, -1);

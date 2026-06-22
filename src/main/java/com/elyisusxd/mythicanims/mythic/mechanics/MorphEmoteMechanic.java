@@ -6,25 +6,23 @@ import io.lumine.mythic.api.skills.INoTargetSkill;
 import io.lumine.mythic.api.skills.SkillMetadata;
 import io.lumine.mythic.api.skills.SkillResult;
 import io.lumine.mythic.api.skills.placeholders.PlaceholderString;
-import io.lumine.mythic.core.skills.SkillExecutor;
-import io.lumine.mythic.core.skills.SkillMechanic;
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.utils.annotations.MythicMechanic;
 import me.feeldev.animorph.api.AnimorphProvider;
 import me.feeldev.animorph.api.IMorphAPI;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.Set;
 
 @MythicMechanic(author = "elyisusxd", name = "morphemote", aliases = {"morphanim"},
         description = "Reproduce un emote de Animorph en el caster (requiere Animorph disponible)")
-public class MorphEmoteMechanic extends SkillMechanic implements INoTargetSkill {
+public class MorphEmoteMechanic implements INoTargetSkill {
 
     private final PlaceholderString emote;
     private final PlaceholderString layer;
 
-    public MorphEmoteMechanic(SkillExecutor manager, File file, String line, MythicLineConfig mlc) {
-        super(manager, file, line, mlc);
+    public MorphEmoteMechanic(MythicMechanicLoadEvent event) {
+        MythicLineConfig mlc = event.getConfig();
         this.emote = PlaceholderString.of(
                 mlc.getString(new String[]{"emote", "e"}, ""));
         this.layer = PlaceholderString.of(

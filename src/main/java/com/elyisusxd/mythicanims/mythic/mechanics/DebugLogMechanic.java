@@ -6,23 +6,21 @@ import io.lumine.mythic.api.skills.INoTargetSkill;
 import io.lumine.mythic.api.skills.SkillMetadata;
 import io.lumine.mythic.api.skills.SkillResult;
 import io.lumine.mythic.api.skills.placeholders.PlaceholderString;
-import io.lumine.mythic.core.skills.SkillExecutor;
-import io.lumine.mythic.core.skills.SkillMechanic;
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.utils.annotations.MythicMechanic;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 @MythicMechanic(author = "elyisusxd", name = "mmlog", aliases = {"debuglog"},
         description = "Log de depuracion que imprime en consola o actionbar")
-public class DebugLogMechanic extends SkillMechanic implements INoTargetSkill {
+public class DebugLogMechanic implements INoTargetSkill {
 
     private final PlaceholderString message;
     private final String target;
 
-    public DebugLogMechanic(SkillExecutor manager, File file, String line, MythicLineConfig mlc) {
-        super(manager, file, line, mlc);
+    public DebugLogMechanic(MythicMechanicLoadEvent event) {
+        MythicLineConfig mlc = event.getConfig();
         this.message = PlaceholderString.of(
                 mlc.getString(new String[]{"msg", "message", "m"}, "[mmlog] sin mensaje"));
         this.target = mlc.getString(new String[]{"target", "t"}, "console").toLowerCase();

@@ -9,28 +9,26 @@ import io.lumine.mythic.api.skills.SkillMetadata;
 import io.lumine.mythic.api.skills.SkillResult;
 import io.lumine.mythic.api.skills.placeholders.PlaceholderString;
 import io.lumine.mythic.bukkit.MythicBukkit;
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.mobs.ActiveMob;
-import io.lumine.mythic.core.skills.SkillExecutor;
-import io.lumine.mythic.core.skills.SkillMechanic;
 import io.lumine.mythic.core.utils.annotations.MythicMechanic;
 import org.bukkit.Bukkit;
 
 import com.elyisusxd.mythicanims.MythicAnimations;
 
-import java.io.File;
 import java.util.Optional;
 
 @MythicMechanic(author = "elyisusxd", name = "vfx",
         description = "Spawnea un mob VFX en la ubicacion del caster, aplica state y lo remueve tras duration ticks")
-public class VfxMechanic extends SkillMechanic implements INoTargetSkill {
+public class VfxMechanic implements INoTargetSkill {
 
     private final PlaceholderString mobName;
     private final PlaceholderString state;
     private final int duration;
     private final boolean bright;
 
-    public VfxMechanic(SkillExecutor manager, File file, String line, MythicLineConfig mlc) {
-        super(manager, file, line, mlc);
+    public VfxMechanic(MythicMechanicLoadEvent event) {
+        MythicLineConfig mlc = event.getConfig();
         this.mobName = PlaceholderString.of(
                 mlc.getString(new String[]{"mob", "m"}, ""));
         this.state = PlaceholderString.of(

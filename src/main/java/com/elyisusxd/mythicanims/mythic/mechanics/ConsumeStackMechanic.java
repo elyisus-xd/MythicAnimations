@@ -7,21 +7,18 @@ import io.lumine.mythic.api.skills.INoTargetSkill;
 import io.lumine.mythic.api.skills.SkillMetadata;
 import io.lumine.mythic.api.skills.SkillResult;
 import io.lumine.mythic.api.skills.placeholders.PlaceholderString;
-import io.lumine.mythic.core.skills.SkillExecutor;
-import io.lumine.mythic.core.skills.SkillMechanic;
+import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.utils.annotations.MythicMechanic;
-
-import java.io.File;
 
 @MythicMechanic(author = "elyisusxd", name = "consumestack",
         description = "Consume stacks de un recurso nombrado; falla si no hay suficientes")
-public class ConsumeStackMechanic extends SkillMechanic implements INoTargetSkill {
+public class ConsumeStackMechanic implements INoTargetSkill {
 
     private final PlaceholderString resource;
     private final int amount;
 
-    public ConsumeStackMechanic(SkillExecutor manager, File file, String line, MythicLineConfig mlc) {
-        super(manager, file, line, mlc);
+    public ConsumeStackMechanic(MythicMechanicLoadEvent event) {
+        MythicLineConfig mlc = event.getConfig();
         this.resource = PlaceholderString.of(
                 mlc.getString(new String[]{"resource", "r"}, ""));
         this.amount = mlc.getInteger(new String[]{"amount", "a"}, 1);
