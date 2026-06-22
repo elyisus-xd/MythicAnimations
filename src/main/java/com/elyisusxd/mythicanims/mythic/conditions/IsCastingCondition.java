@@ -4,6 +4,7 @@ import com.elyisusxd.mythicanims.mythic.CastingTracker;
 import com.elyisusxd.mythicanims.mythic.mechanics.CastLockMechanic;
 import io.lumine.mythic.api.skills.SkillCaster;
 import io.lumine.mythic.api.skills.conditions.ICasterCondition;
+import io.lumine.mythic.bukkit.events.MythicConditionLoadEvent;
 import io.lumine.mythic.core.skills.SkillCondition;
 import io.lumine.mythic.core.utils.annotations.MythicCondition;
 
@@ -11,8 +12,8 @@ import io.lumine.mythic.core.utils.annotations.MythicCondition;
         description = "Retorna true/false segun si el caster tiene el aura CASTING activa")
 public class IsCastingCondition extends SkillCondition implements ICasterCondition {
 
-    public IsCastingCondition(String line) {
-        super(line);
+    public IsCastingCondition(MythicConditionLoadEvent event) {
+        super(event.getConditionName());
     }
 
     @Override

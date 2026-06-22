@@ -1,8 +1,10 @@
 package com.elyisusxd.mythicanims.mythic.conditions;
 
 import com.elyisusxd.mythicanims.MythicAnimations;
+import io.lumine.mythic.api.config.MythicLineConfig;
 import io.lumine.mythic.api.skills.SkillCaster;
 import io.lumine.mythic.api.skills.conditions.ICasterCondition;
+import io.lumine.mythic.bukkit.events.MythicConditionLoadEvent;
 import io.lumine.mythic.core.skills.SkillCondition;
 import io.lumine.mythic.core.utils.annotations.MythicCondition;
 
@@ -21,11 +23,12 @@ public class CooldownReadyCondition extends SkillCondition implements ICasterCon
     private final double base;
     private final double reduction;
 
-    public CooldownReadyCondition(String line) {
-        super(line);
-        this.skillId = parseAttribute(line, "skill", "s", "");
-        this.base = parseDoubleAttribute(line, "base", "b", 8.0);
-        this.reduction = parseDoubleAttribute(line, "reduction", "r", 0.0);
+    public CooldownReadyCondition(MythicConditionLoadEvent event) {
+        super(event.getConditionName());
+        MythicLineConfig mlc = event.getConfig();
+        this.skillId = mlc.getString(new String[]{"skill", "s"}, "");
+        this.base = mlc.getDouble(new String[]{"base", "b"}, 8.0);
+        this.reduction = mlc.getDouble(new String[]{"reduction", "r"}, 0.0);
     }
 
     @Override
@@ -65,35 +68,5 @@ public class CooldownReadyCondition extends SkillCondition implements ICasterCon
     public static void cleanup() {
         long now = System.currentTimeMillis();
         LAST_CAST.entrySet().removeIf(entry -> (now - entry.getValue()) > EXPIRY_THRESHOLD_MS);
-    }
-
-    // --- Parsing helpers para condiciones (sin MythicLineConfig) ---
-
-    private static String parseAttribute(String line, String longKey, String shortKey, String defaultVal) {
-        if (line == null) return defaultVal;
-        String search = line.toLowerCase();
-        int start = search.indexOf('{');
-        int end = search.indexOf('}');
-        if (start < 0 || end < 0 || end <= start) return defaultVal;
-
-        String attrs = line.substring(start + 1, end);
-        for (String attr : attrs.split(";")) {
-            String[] kv = attr.split("=", 2);
-            if (kv.length != 2) continue;
-            String key = kv[0].trim().toLowerCase();
-            if (key.equals(longKey) || key.equals(shortKey)) {
-                return kv[1].trim();
-            }
-        }
-        return defaultVal;
-    }
-
-    private static double parseDoubleAttribute(String line, String longKey, String shortKey, double defaultVal) {
-        String val = parseAttribute(line, longKey, shortKey, String.valueOf(defaultVal));
-        try {
-            return Double.parseDouble(val);
-        } catch (NumberFormatException e) {
-            return defaultVal;
-        }
     }
 }
