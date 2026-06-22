@@ -58,8 +58,19 @@ public class VfxMechanic extends SkillMechanic implements INoTargetSkill {
         // Aplica state (Stance del state machine de ModelEngine)
         String resolvedState = state.get(data);
         if (!resolvedState.isEmpty()) {
+            // TODO: verificar método correcto para state machine en MM 5.x
+            // setStance() es la forma estándar en MythicMobs 5.x para cambiar
+            // el estado de una state machine de ModelEngine, pero si no funciona
+            // se debe usar la API de ModelEngine directamente.
             activeMob.setStance(resolvedState);
         }
+
+        // TODO: aplicar brightness via API cuando bright=true
+        // MythicMobs/ModelEngine no expone un método directo para setear brightness
+        // desde ActiveMob. La configuración de brillo se hace en el YAML del mob VFX
+        // (ej: Options.LightLevel). Si se necesita control desde el mechanic,
+        // habría que usar la API de ModelEngine directamente.
+        // Por ahora se asume que el YAML del mob VFX ya tiene la brightness configurada.
 
         // Programa la remocion despues de duration ticks
         Bukkit.getScheduler().runTaskLater(

@@ -29,7 +29,7 @@ public class SkillLevelCondition extends SkillCondition implements ICasterCondit
 
         int currentLevel = plugin.getPointsManager().getSkillLevel(
                 caster.getEntity().getUniqueId(), skillId);
-        return currentLevel >= requiredLevel;
+        return currentLevel == requiredLevel;
     }
 
     // --- Parsing helpers para condiciones (sin MythicLineConfig) ---

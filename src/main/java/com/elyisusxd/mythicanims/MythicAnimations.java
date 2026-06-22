@@ -1,5 +1,8 @@
 package com.elyisusxd.mythicanims;
 
+import com.elyisusxd.mythicanims.mythic.CastingTracker;
+import com.elyisusxd.mythicanims.mythic.conditions.CooldownReadyCondition;
+import com.elyisusxd.mythicanims.mythic.conditions.HitOnceCondition;
 import com.elyisusxd.mythicanims.placeholder.SkillLevelExpansion;
 import com.elyisusxd.mythicanims.progression.LocalProgressionStorage;
 import com.elyisusxd.mythicanims.progression.PointsCommand;
@@ -33,6 +36,13 @@ public final class MythicAnimations extends JavaPlugin {
 
         // Registro de mechanics/conditions custom
         new CustomComponentRegistry(this, "com.elyisusxd.mythicanims.mythic");
+
+        // Task periodico de cleanup async para evitar memory leaks (cada 5 minutos)
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
+            CastingTracker.cleanup();
+            HitOnceCondition.cleanup();
+            CooldownReadyCondition.cleanup();
+        }, 6000L, 6000L);
 
         // Sistema de progresion
         storage = new LocalProgressionStorage(this);
