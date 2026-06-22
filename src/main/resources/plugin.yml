@@ -12,5 +12,11 @@ softdepend: [Animorph, PlaceholderAPI]
 commands:
   morphpoints:
     description: Administra puntos de progresión
+    permission: mythicanims.admin
+    usage: /<command> <give|set|get|reset> <jugador> [cantidad]
   skills:
     description: Abre el árbol de habilidades
+permissions:
+  mythicanims.admin:
+    description: Acceso admin completo (comandos de puntos, etc.)
+    default: op
