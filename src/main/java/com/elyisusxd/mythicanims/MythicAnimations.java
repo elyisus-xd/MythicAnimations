@@ -1,5 +1,6 @@
 package com.elyisusxd.mythicanims;
 
+import com.elyisusxd.mythicanims.placeholder.SkillLevelExpansion;
 import com.elyisusxd.mythicanims.progression.LocalProgressionStorage;
 import com.elyisusxd.mythicanims.progression.PointsCommand;
 import com.elyisusxd.mythicanims.progression.PointsManager;
@@ -47,6 +48,12 @@ public final class MythicAnimations extends JavaPlugin {
             PointsCommand cmd = new PointsCommand(pointsManager);
             morphpointsCmd.setExecutor(cmd);
             morphpointsCmd.setTabCompleter(cmd);
+        }
+
+        // PlaceholderAPI expansion (softdepend)
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new SkillLevelExpansion(this).register();
+            getLogger().info("PlaceholderAPI detectado — expansion %mythicanims_skilllevel_*% registrada.");
         }
 
         getLogger().info("MythicAnimations habilitado correctamente.");
