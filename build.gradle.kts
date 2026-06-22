@@ -16,8 +16,8 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnly("io.lumine:Mythic-Dist:5.11.2") // ajustar a tu versión instalada
-    // compileOnly("com.github.feeldev12.Animorph-API:server:VERSION") // TODO: reemplazar VERSION real cuando se implemente MorphEmoteMechanic
+    compileOnly("io.lumine:Mythic-Dist:5.11.2")
+    compileOnly("com.github.feeldev12.Animorph-API:server:1.1.2")
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
