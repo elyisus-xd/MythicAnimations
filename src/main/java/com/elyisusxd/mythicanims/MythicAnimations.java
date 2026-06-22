@@ -1,5 +1,7 @@
 package com.elyisusxd.mythicanims;
 
+import com.elyisusxd.mythicanims.gui.SkillTreeGUI;
+import com.elyisusxd.mythicanims.gui.SkillTreeListener;
 import com.elyisusxd.mythicanims.mythic.CastingTracker;
 import com.elyisusxd.mythicanims.mythic.conditions.CooldownReadyCondition;
 import com.elyisusxd.mythicanims.mythic.conditions.HitOnceCondition;
@@ -64,6 +66,17 @@ public final class MythicAnimations extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new SkillLevelExpansion(this).register();
             getLogger().info("PlaceholderAPI detectado — expansion %mythicanims_skilllevel_*% registrada.");
+        }
+
+        // SkillTree GUI + Listener + comando /skills
+        Bukkit.getPluginManager().registerEvents(new SkillTreeListener(this), this);
+        PluginCommand skillsCmd = getCommand("skills");
+        if (skillsCmd != null) {
+            skillsCmd.setExecutor((sender, cmd, label, args) -> {
+                if (!(sender instanceof org.bukkit.entity.Player player)) return true;
+                player.openInventory(SkillTreeGUI.build(player, this));
+                return true;
+            });
         }
 
         getLogger().info("MythicAnimations habilitado correctamente.");

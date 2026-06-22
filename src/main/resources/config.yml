@@ -2,3 +2,25 @@
 
 # Puntos otorgados por cada nivel vanilla ganado
 points-per-level: 1
+
+# Arbol de habilidades (SkillTreeGUI)
+# Las skills se definen aqui para no hardcodear en Java.
+skill-tree:
+  volcanic_spear:
+    display-name: "§cVolcanic Spear"
+    icon: BLAZE_ROD
+    slot: 10
+    max-level: 3
+    cost-per-level: 5
+  shield_bash:
+    display-name: "§9Shield Bash"
+    icon: SHIELD
+    slot: 13
+    max-level: 2
+    cost-per-level: 8
+  swift_dash:
+    display-name: "§eSwift Dash"
+    icon: FEATHER
+    slot: 16
+    max-level: 4
+    cost-per-level: 3
